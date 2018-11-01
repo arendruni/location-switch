@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Disabled</key>
+	<false/>
+	<key>Label</key>
+	<string>it.arendruni.location-switch.agent</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>location_switch</string>
+
+		<!-- home ethernet only location -->
+		<string><!-- HOME_ETH_LOCATION --></string>
+
+		<!-- home ethernet location mac-address -->
+		<string><!-- HOME_ETH_MAC_ADDRESS --></string>
+
+		<!-- home wifi location -->
+		<string><!-- HOME_LOCATION --></string>
+
+		<!-- home wifi ssid -->
+		<string><!-- HOME_SSID --></string>
+
+		<!-- auto location (generic wifi network) -->
+		<string><!-- AUTO_LOCATION --></string>
+
+		<!-- ethernet auto (generic ethernet network) -->
+		<string><!-- ETH_LOCATION --></string>
+
+		<!-- ethernet interface -->
+		<string><!-- ETH INTERFACE --></string>
+	</array>
+	<key>LowPriorityIO</key>
+	<true/>
+	<key>Program</key>
+	<string><!-- full path to locationswitch.sh file --></string>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>10</integer>
+</dict>
+</plist>

@@ -1,13 +1,17 @@
 #!/bin/sh
 
-# Simple script to switch from one location to another, 
-# each location has different network parameters and 
-# interfaces. 
-# It checks wheter an ethernet cable is connected or 
-# the wifi interface is connected to a knwon SSID.
+# A Simple script run by a deamon every 10 seconds,
+# used to switch from one network location to another, 
+# each location has specific parameters and is based
+# on different interfaces.
+#
+# Basically it checks if an ethernet interface is 
+# connected then checks if the interface MAC address
+# is a known address. Instead, checks if the WiFi SSID 
+# is a known SSID.
 #
 # Author: arendruni
-# Last Update: 1st November 2018
+# Last Update: 9th November 2018
 
 # Get current location
 CURRENT_LOCATION=$(networksetup -getcurrentlocation)

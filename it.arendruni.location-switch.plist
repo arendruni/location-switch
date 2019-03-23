@@ -30,6 +30,9 @@
 
 		<!-- ethernet interface -->
 		<string><!-- ETH INTERFACE --></string>
+
+		<!-- display notification -->
+		<true/>
 	</array>
 	<key>LowPriorityIO</key>
 	<true/>

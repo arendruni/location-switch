@@ -37,6 +37,9 @@ LOCATION_AUTO_ETHERNET=$6
 # Ethernet interface
 ETH_INT=$7
 
+# Display notification
+NOTIFICATION=$8
+
 # check if ethernet cable is connected
 if ( ifconfig | grep -q $ETH_INT ); then
 	# check if the ethernet mac is kwown (at home)
@@ -61,5 +64,7 @@ if [ $CURRENT_LOCATION != $NEW_LOCATION ]; then
 	scselect "$NEW_LOCATION"
 
 	# display a notification
-	osascript -e "display notification \"Network location switched from $CURRENT_LOCATION to $NEW_LOCATION\" with title \"Network Location Switcher\""
+	if [ $NOTIFICATION ]; then 
+		osascript -e "display notification \"Network location switched from $CURRENT_LOCATION to $NEW_LOCATION\" with title \"Network Location Switcher\""
+	fi
 fi 

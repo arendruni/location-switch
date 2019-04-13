@@ -64,7 +64,7 @@ if [ $CURRENT_LOCATION != $NEW_LOCATION ]; then
 	scselect "$NEW_LOCATION"
 
 	# display a notification
-	if [ $NOTIFICATION ]; then 
+	if [ $NOTIFICATION == "--notification" ]; then 
 		osascript -e "display notification \"Network location switched from $CURRENT_LOCATION to $NEW_LOCATION\" with title \"Network Location Switcher\""
 	fi
 fi 

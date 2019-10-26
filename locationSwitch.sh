@@ -11,7 +11,7 @@
 # is a known SSID.
 #
 # Author: arendruni
-# Last Update: 9th November 2018
+# Last Update: 26th October 2019
 
 # Get current location
 CURRENT_LOCATION=$(networksetup -getcurrentlocation)
@@ -51,7 +51,7 @@ if ( ifconfig | grep -q $ETH_INT ); then
 		NEW_LOCATION=$LOCATION_AUTO_ETHERNET
 	fi
 # look for known SSID 
-elif ( airport --getinfo | grep -q $SSID ); then
+elif ( /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --getinfo | grep -q $SSID ); then
 	# set new location to home
 	NEW_LOCATION=$LOCATION_HOME
 else

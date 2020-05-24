@@ -42,16 +42,16 @@ NOTIFICATION=$8
 
 # check if ethernet cable is connected
 # check if the ethernet mac is kwown (at home)
-if (ifconfig | grep -q $ETH_MAC); then
+if (ifconfig | grep -q "$ETH_MAC"); then
     # set new location to ethernet home
     NEW_LOCATION=$LOCATION_ETHERNET
     
-    elif ( ifconfig | grep -q $ETH_INT ); then
+    elif ( ifconfig | grep -q "$ETH_INT" ); then
     # instead, set ne location to generic ethernet
     NEW_LOCATION=$LOCATION_AUTO_ETHERNET
     
     # look for known SSID
-    elif ( /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --getinfo | grep -q $SSID ); then
+    elif ( /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --getinfo | grep -q "$SSID" ); then
     # set new location to home
     NEW_LOCATION=$LOCATION_HOME
 else
@@ -60,11 +60,11 @@ else
 fi
 
 # switch to new location only if it's changed from current location
-if [ $CURRENT_LOCATION != $NEW_LOCATION ]; then
+if [ "$CURRENT_LOCATION" != "$NEW_LOCATION" ]; then
     scselect "$NEW_LOCATION"
     
     # display a notification
-    if [ $NOTIFICATION == "--notification" ]; then
+    if [ "$NOTIFICATION" == "--notification" ]; then
         osascript -e "display notification \"Network location switched from $CURRENT_LOCATION to $NEW_LOCATION\" with title \"Network Location Switcher\""
     fi
 fi

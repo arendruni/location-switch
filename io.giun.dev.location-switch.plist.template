@@ -2,36 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>Disabled</key>
-		<false/>
 		<key>Label</key>
-		<string>io.giun.dev.location-switch.agent</string>
-		<key>ProgramArguments</key>
-		<array>
-			<string>location_switch</string>
-
-			<!-- default location -->
-			<string><!-- DEFAULT_LOCATION --></string>
-
-			<!-- my location -->
-			<string><!-- MY_LOCATION --></string>
-
-			<!-- mac-address -->
-			<string><!-- MAC ADDRESSES REGEX --></string>
-
-			<!-- wifi ssid -->
-			<string><!-- SSID REGEX --></string>
-
-			<!-- display notification -->
-			<string>--notification</string>
-		</array>
-		<key>LowPriorityIO</key>
-		<true/>
+		<string>com.example.network_location_changer</string>
 		<key>Program</key>
 		<string><!-- full path to locationswitch.sh file --></string>
-		<key>RunAtLoad</key>
-		<true/>
 		<key>StartInterval</key>
 		<integer>10</integer>
+		<key>RunAtLoad</key>
+		<true />
+		<key>LowPriorityIO</key>
+		<key>StandardOutPath</key>
+		<string><!-- full path to locationswitch.log  --></string>
+		<key>StandardErrorPath</key>
+		<string><!-- full path to locationswitch.log  --></string>
+		<key>Disabled</key>
+		<false />
 	</dict>
 </plist>

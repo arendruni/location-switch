@@ -5,7 +5,11 @@
 		<key>Label</key>
 		<string>com.example.network_location_changer</string>
 		<key>Program</key>
-		<string><!-- full path to locationswitch.sh file --></string>
+		<key>ProgramArguments</key>
+		<array>
+			<string>location_switch</string>
+			<string>-v</string>
+		</array>
 		<key>StartInterval</key>
 		<integer>10</integer>
 		<key>RunAtLoad</key>

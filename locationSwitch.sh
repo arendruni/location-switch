@@ -39,7 +39,9 @@ for loc in "${KNOWN_LOCATIONS[@]}"; do
             # set new location to the item location
             NEW_LOCATION=$LOCATION
 
-            echo "MAC address matched \"$MAC\", new location to set: \"$NEW_LOCATION\""
+            if [[ "$1" == "-v" ]]; then
+                echo "MAC address matched \"$MAC\", new location to set: \"$NEW_LOCATION\""
+            fi
             break
         fi
     # check if the item starts with "s" (SSID)
@@ -53,11 +55,17 @@ for loc in "${KNOWN_LOCATIONS[@]}"; do
             # set new location to item location
             NEW_LOCATION=$LOCATION
 
-            echo "SSID matched: \"$SSID\", new location to set: \"$NEW_LOCATION\""
+            if [[ "$1" == "-v" ]]; then
+                echo "SSID matched: \"$SSID\", new location to set: \"$NEW_LOCATION\""
+            fi
             break
         fi
     else
-        echo "Unknown location format: \"$loc\""
+        if [[ "$1" == "-v" ]]; then
+            echo "Unknown location format: \"$loc\""
+        fi
+
+        exit 1
     fi
 done
 
@@ -65,12 +73,16 @@ done
 if [ "$CURRENT_LOCATION" != "$NEW_LOCATION" ]; then
     scselect "$NEW_LOCATION"
 
-    echo "location changed from $CURRENT_LOCATION to $NEW_LOCATION"
+    if [[ "$1" == "-v" ]]; then
+        echo "location changed from $CURRENT_LOCATION to $NEW_LOCATION"
+    fi
 
     # display a notification
     if [ "$NOTIFICATION" == 1 ]; then
         osascript -e "display notification \"Network location switched from $CURRENT_LOCATION to $NEW_LOCATION\" with title \"Network Location Switcher\""
     fi
 else
-    echo "location not changed from $CURRENT_LOCATION"
+    if [[ "$1" == "-v" ]]; then
+        echo "location not changed from $CURRENT_LOCATION"
+    fi
 fi

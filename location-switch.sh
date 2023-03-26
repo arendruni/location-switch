@@ -24,6 +24,9 @@ CURRENT_LOCATION=$(networksetup -getcurrentlocation)
 # airport path program
 AIRPORT_PATH=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
 
+# logging
+DATE_COMMAND="date -Iseconds"
+
 # set new location to default location
 NEW_LOCATION=$DEFAULT_LOCATION
 
@@ -40,7 +43,7 @@ for loc in "${KNOWN_LOCATIONS[@]}"; do
             NEW_LOCATION=$LOCATION
 
             if [[ "$1" == "-v" ]]; then
-                echo "MAC address matched \"$MAC\", new location to set: \"$NEW_LOCATION\""
+                echo "[$($DATE_COMMAND)]: MAC address matched \"$MAC\", new location to set: \"$NEW_LOCATION\""
             fi
             break
         fi
@@ -56,13 +59,13 @@ for loc in "${KNOWN_LOCATIONS[@]}"; do
             NEW_LOCATION=$LOCATION
 
             if [[ "$1" == "-v" ]]; then
-                echo "SSID matched: \"$SSID\", new location to set: \"$NEW_LOCATION\""
+                echo "[$($DATE_COMMAND)]: SSID matched: \"$SSID\", new location to set: \"$NEW_LOCATION\""
             fi
             break
         fi
     else
         if [[ "$1" == "-v" ]]; then
-            echo "Unknown location format: \"$loc\""
+            echo "[$($DATE_COMMAND)]: Unknown location format: \"$loc\""
         fi
 
         exit 1
@@ -71,18 +74,20 @@ done
 
 # switch to new location only if it changed from current location
 if [ "$CURRENT_LOCATION" != "$NEW_LOCATION" ]; then
-    scselect "$NEW_LOCATION"
+    output=$(scselect "$NEW_LOCATION")
 
     if [[ "$1" == "-v" ]]; then
-        echo "location changed from $CURRENT_LOCATION to $NEW_LOCATION"
+        echo "[$($DATE_COMMAND)]: $output"
+        echo "[$($DATE_COMMAND)]: location changed from $CURRENT_LOCATION to $NEW_LOCATION"
     fi
 
     # display a notification
     if [ "$NOTIFICATION" == 1 ]; then
+        echo "[$($DATE_COMMAND)]: sending notification"
         osascript -e "display notification \"Network location switched from $CURRENT_LOCATION to $NEW_LOCATION\" with title \"Network Location Switcher\""
     fi
 else
     if [[ "$1" == "-v" ]]; then
-        echo "location not changed from $CURRENT_LOCATION"
+        echo "[$($DATE_COMMAND)]: location not changed from $CURRENT_LOCATION"
     fi
 fi

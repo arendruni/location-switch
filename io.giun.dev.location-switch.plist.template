@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>Label</key>
-		<string>io.giun.dev.location-switch</string>
-		<key>ProgramArguments</key>
-		<array>
-			<string><!-- full path to location switch--></string>
-			<!-- using -v to enable logging -->
-			<string>-v</string>
-		</array>
-		<key>StartInterval</key>
-		<integer>10</integer>
-		<key>RunAtLoad</key>
-		<true />
-		<key>LowPriorityIO</key>
-		<true />
-		<key>StandardOutPath</key>
-		<string>/var/log/io.giun.dev.location-switch/output.log</string>
-		<key>StandardErrorPath</key>
-		<string>/var/log/io.giun.dev.location-switch/error.log</string>
-	</dict>
+  <dict>
+    <key>Label</key>
+    <string>io.giun.dev.location-switch</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/path/to/location-switch.sh</string>
+      <string>-v</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>10</integer>
+    <key>RunAtLoad</key>
+    <true />
+    <key>LowPriorityIO</key>
+    <true />
+    <key>StandardOutPath</key>
+    <string>/path/to/location-switch/output.log</string>
+    <key>StandardErrorPath</key>
+    <string>/path/to/location-switch/error.log</string>
+  </dict>
 </plist>

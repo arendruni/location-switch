@@ -50,34 +50,36 @@ To run this script as a background process on macOS, you can use the `launchd` s
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.example.network_location_changer</string>
-    <key>Program</key>
-    <string>/path/to/network_location_changer.sh</string>
+    <string>io.giun.dev.location-switch</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/path/to/location-switch.sh</string>
+      <string>-v</string>
+    </array>
     <key>StartInterval</key>
     <integer>10</integer>
     <key>RunAtLoad</key>
-    <true/>
+    <true />
     <key>LowPriorityIO</key>
+    <true />
     <key>StandardOutPath</key>
-    <string>/path/to/network_location_changer.log</string>
+    <string>/path/to/location-switch/output.log</string>
     <key>StandardErrorPath</key>
-    <string>/path/to/network_location_changer.log</string>
-    <key>Disabled</key>
-    <false/>
+    <string>/path/to/location-switch/error.log</string>
   </dict>
 </plist>
 ```
 
-Save this file as `com.example.network_location_changer.plist` in the `/Library/LaunchAgents/` directory. Make sure to replace `/path/to/network_location_changer.sh` with the actual path to your script.
+Edit the example file `io.giun.dev.location-switch.template.plist` to make sure to replace `/path/to/location-switch.sh` with the actual path to your script.
 
 To load the `launchd` configuration, run the following command:
 
 ```shell
-$ launchctl load /Library/LaunchAgents/com.example.network_location_changer.plist
+$ launchctl load io.giun.dev.location-switch.plist
 ```
 
 This will start the script and run it every 10 seconds. You can view the script output in the log file specified in the configuration file. To stop the script, unload the `launchd` configuration with the following command:
 
 ```shell
-$ launchctl unload /Library/LaunchAgents/com.example.network_location_changer.plist
+$ launchctl unload io.giun.dev.location-switch.plist
 ```

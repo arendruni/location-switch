@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 		<key>Label</key>
-		<string>com.example.network_location_changer</string>
+		<string>io.giun.dev.location-switch</string>
 		<key>Program</key>
 		<key>ProgramArguments</key>
 		<array>
@@ -16,9 +16,9 @@
 		<true />
 		<key>LowPriorityIO</key>
 		<key>StandardOutPath</key>
-		<string><!-- full path to locationswitch.log  --></string>
+		<string>/var/log/io.giun.dev.location-switch/output.log</string>
 		<key>StandardErrorPath</key>
-		<string><!-- full path to locationswitch.log  --></string>
+		<string>/var/log/io.giun.dev.location-switch/error.log</string>
 		<key>Disabled</key>
 		<false />
 	</dict>

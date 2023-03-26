@@ -1,51 +1,65 @@
-#!/bin/sh
+#!/bin/bash
 
-# A Simple script used to switch from one network location to another, each location
+# A simple script used to switch from one network location to another, each location
 # has specific parameters and is based on different interfaces.
-#
-# Basically it checks if an ethernet interface is connected then checks if the
-# interface MAC address is a known address. Instead, checks if the WiFi SSID is a
-# known SSID.
 #
 # Author: dev@giun.io
 # Last Update: 26th March 2023
 
+# default network location
+DEFAULT_LOCATION="Automatic"
+
+# new location
+KNOWN_LOCATIONS=(
+    # add your locations here
+    # m:00:11:22:33:44:55:Home 
+)
+
+# display notification when location changes
+NOTIFICATION=1
+
 # get current location
 CURRENT_LOCATION=$(networksetup -getcurrentlocation)
 
-# default network location
-DEFAULT_LOCATION=$1
+# airport path program
+AIRPORT_PATH=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
 
-# my location
-MY_LOCATION=$2
+# set new location to default location
+NEW_LOCATION=$DEFAULT_LOCATION
 
-# mac address regex
-ETH_MAC=$3
+for loc in "${KNOWN_LOCATIONS[@]}"; do
+    # check if the item starts with "m" (MAC address)
+    if [[ $loc == m:* ]]; then
+        # extract the MAC address and location name from the item
+        MAC="${loc:2:17}"
+        LOCATION="${loc:20}"
 
-# SSIDs regex
-SSID=$4
+        # check if the mac address matches any ethernet interface
+        if (ifconfig | grep -q -E "$MAC"); then
+            # set new location to the item location
+            NEW_LOCATION=$LOCATION
 
-# display notification when location changes
-NOTIFICATION=$5
+            echo "MAC address matched \"$MAC\", new location to set: \"$NEW_LOCATION\""
+            break
+        fi
+    # check if the item starts with "s" (SSID)
+    elif [[ $loc == s:* ]]; then
+        # extract the SSID and locationname from the item
+        SSID="$(echo $loc | cut -d: -f2)"
+        LOCATION="${loc:3+${#SSID}}"
 
-# check if ethernet cable is connected
-if (ifconfig | grep -q -E "$ETH_MAC"); then
-    # set new location
-    NEW_LOCATION=$MY_LOCATION
+        # check if matched ssid is currently connected
+        if ($AIRPORT_PATH --getinfo | grep -q -E "$SSID$"); then
+            # set new location to item location
+            NEW_LOCATION=$LOCATION
 
-    echo "MAC address matched $ETH_MAC"
-# look for known SSIDs
-elif (/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --getinfo | grep -q -E "$SSID"); then
-    # set new location
-    NEW_LOCATION=$MY_LOCATION
-
-    echo "Active SSID matched $SSID"
-else
-    # set new location to auto
-    NEW_LOCATION=$DEFAULT_LOCATION
-
-    echo "Nothing matched"
-fi
+            echo "SSID matched: \"$SSID\", new location to set: \"$NEW_LOCATION\""
+            break
+        fi
+    else
+        echo "Unknown location format: \"$loc\""
+    fi
+done
 
 # switch to new location only if it changed from current location
 if [ "$CURRENT_LOCATION" != "$NEW_LOCATION" ]; then
@@ -54,9 +68,9 @@ if [ "$CURRENT_LOCATION" != "$NEW_LOCATION" ]; then
     echo "location changed from $CURRENT_LOCATION to $NEW_LOCATION"
 
     # display a notification
-    if [ "$NOTIFICATION" == "--notification" ]; then
+    if [ "$NOTIFICATION" == 1 ]; then
         osascript -e "display notification \"Network location switched from $CURRENT_LOCATION to $NEW_LOCATION\" with title \"Network Location Switcher\""
     fi
 else
-    echo "location not changed"
+    echo "location not changed from $CURRENT_LOCATION"
 fi

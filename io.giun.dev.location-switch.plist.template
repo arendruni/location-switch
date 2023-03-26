@@ -4,10 +4,10 @@
 	<dict>
 		<key>Label</key>
 		<string>io.giun.dev.location-switch</string>
-		<key>Program</key>
 		<key>ProgramArguments</key>
 		<array>
-			<string>location_switch</string>
+			<string><!-- full path to location switch--></string>
+			<!-- using -v to enable logging -->
 			<string>-v</string>
 		</array>
 		<key>StartInterval</key>
@@ -15,11 +15,10 @@
 		<key>RunAtLoad</key>
 		<true />
 		<key>LowPriorityIO</key>
+		<true />
 		<key>StandardOutPath</key>
 		<string>/var/log/io.giun.dev.location-switch/output.log</string>
 		<key>StandardErrorPath</key>
 		<string>/var/log/io.giun.dev.location-switch/error.log</string>
-		<key>Disabled</key>
-		<false />
 	</dict>
 </plist>

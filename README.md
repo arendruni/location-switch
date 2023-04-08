@@ -4,6 +4,8 @@ This bash script is designed to change the network location on a Mac based on th
 
 The script works by comparing the MAC address or SSID of the currently connected network to a list of known MAC addresses or SSIDs. If there is a match, the script changes the network location to the corresponding predefined location. If there is no match, the script changes the network location default location.
 
+For more information on creating and using network locations on macOS, you can refer to the official Apple support document: [Use network locations on Mac](https://support.apple.com/en-us/HT202480).
+
 ## Compatibility
 
 This script is intended to be used on macOS 10.15 (Catalina) or later. It may not work on older versions of macOS.

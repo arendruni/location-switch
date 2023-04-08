@@ -4,6 +4,12 @@ This bash script is designed to change the network location on a Mac based on th
 
 The script works by comparing the MAC address or SSID of the currently connected network to a list of known MAC addresses or SSIDs. If there is a match, the script changes the network location to the corresponding predefined location. If there is no match, the script changes the network location default location.
 
+## Compatibility
+
+This script is intended to be used on macOS 10.15 (Catalina) or later. It may not work on older versions of macOS.
+
+Please ensure that your system meets the minimum requirements before attempting to run this script. If you encounter any issues, please let me know and I will do my best to assist you.
+
 ## Usage
 
 To use this script, you will need to change the following variables at the beginning of the script:
@@ -83,3 +89,5 @@ This will start the script and run it every 10 seconds. You can view the script 
 ```shell
 $ launchctl unload io.giun.dev.location-switch.plist
 ```
+
+Move the `.plist` file to the `~/Library/LaunchAgents` to launch the agent at startup.

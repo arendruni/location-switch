@@ -30,6 +30,9 @@ DATE_COMMAND="date -Iseconds"
 # set new location to default location
 NEW_LOCATION=$DEFAULT_LOCATION
 
+IFCONFIG_OUTPUT=$(ifconfig)
+WIFI_OUTPUT=$(ipconfig getsummary $WIFI_INTERFACE)
+
 for loc in "${KNOWN_LOCATIONS[@]}"; do
     # check if the item starts with "m" (MAC address)
     if [[ $loc == m:* ]]; then
@@ -38,7 +41,7 @@ for loc in "${KNOWN_LOCATIONS[@]}"; do
         LOCATION="${loc:20}"
 
         # check if the mac address matches any ethernet interface
-        if (ifconfig | grep -q -E "$MAC"); then
+        if (echo "$IFCONFIG_OUTPUT" | grep -q -E "$MAC"); then
             # set new location to the item location
             NEW_LOCATION=$LOCATION
 
@@ -54,7 +57,7 @@ for loc in "${KNOWN_LOCATIONS[@]}"; do
         LOCATION="${loc:3+${#SSID}}"
 
         # check if matched ssid is currently connected
-        if (ipconfig getsummary $WIFI_INTERFACE | grep -q -E "SSID : $SSID\$"); then
+        if (echo "$WIFI_OUTPUT" | grep -q -E "SSID : $SSID\$"); then
             # set new location to item location
             NEW_LOCATION=$LOCATION
 

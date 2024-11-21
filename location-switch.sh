@@ -4,7 +4,7 @@
 # has specific parameters and is based on different interfaces.
 #
 # Author: dev@giun.io
-# Last Update: 26th March 2023
+# Last Update: 21st November 2024
 
 # default network location
 DEFAULT_LOCATION="Automatic"
@@ -21,8 +21,8 @@ NOTIFICATION=1
 # get current location
 CURRENT_LOCATION=$(networksetup -getcurrentlocation)
 
-# airport path program
-AIRPORT_PATH=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
+# wifi interface
+WIFI_INTERFACE=en0
 
 # logging
 DATE_COMMAND="date -Iseconds"
@@ -54,7 +54,7 @@ for loc in "${KNOWN_LOCATIONS[@]}"; do
         LOCATION="${loc:3+${#SSID}}"
 
         # check if matched ssid is currently connected
-        if ($AIRPORT_PATH --getinfo | grep -q -E "$SSID$"); then
+        if (ipconfig getsummary $WIFI_INTERFACE | grep -q -E "SSID : $SSID\$"); then
             # set new location to item location
             NEW_LOCATION=$LOCATION
 
